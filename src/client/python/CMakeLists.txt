@@ -1,29 +1,29 @@
 
 message(WARNING "ToDo: Implement python client with CMake")
 
-#CC = $(CC_FOR_BUILD7)
-#CPPFLAGS = $(CPPFLAGS_FOR_BUILD)
-#CFLAGS = $(CFLAGS_FOR_BUILD)
-#LDFLAGS = $(LDFLAGS_FOR_BUILD)
-#LIBS = $(LIBS_FOR_BUILD)
-#EXEEXT = $(EXEEXT_FOR_BUILD)
-#
-#AM_CPPFLAGS=-I$(top_srcdir)/src/include -I$(top_srcdir)/src/client -I$(top_builddir)/src/client
-#
-#EXTRA_DIST = io.inc
-#CLEANFILES = gen.inc EIBConnection.py result.inc
-#
-#result.inc : $(top_srcdir)/src/common/eibloadresult.h
-#	cat $<  |grep IMG_ |sed -e 's/#define \(IMG_[A-Z_0-9]\+\)  \+\([0-9]\+\)/\1 = \2/g' > $@
-#
-#noinst_PROGRAMS = gen
-#
-#gen_SOURCES=gen.c arg.def def.def
-#
-#pkgdata_DATA = EIBConnection.py
-#
-#gen.inc : gen$(EXEEXT)
-#	./$< > $@
-#
-#EIBConnection.py : io.inc gen.inc result.inc
-#	cat $^ > $@
+include_directories ("${PROJECT_SOURCE_DIR}/src/include")
+include_directories ("${PROJECT_SOURCE_DIR}/src/common")
+include_directories ("${PROJECT_SOURCE_DIR}/src/client")
+
+add_executable(gen-python gen.c)
+
+SET(GEN_DIRECTORY "${CMAKE_BINARY_DIR}/client/python/gen")
+FILE(MAKE_DIRECTORY "${GEN_DIRECTORY}")
+
+add_custom_command(OUTPUT "${GEN_DIRECTORY}/gen.inc" DEPENDS gen-python
+  COMMAND gen-python > "${GEN_DIRECTORY}/gen.inc")
+
+add_custom_command(OUTPUT "${GEN_DIRECTORY}/result.inc" DEPENDS "${CMAKE_SOURCE_DIR}/src/common/eibloadresult.h"
+  COMMAND
+  cat ${CMAKE_SOURCE_DIR}/src/common/eibloadresult.h | grep IMG_ |
+    sed -e "'s/#define \(IMG_[A-Z_0-9]\+\)  \+\([0-9]\+\)/\1 = \2/g'" > "${GEN_DIRECTORY}/result.inc"
+  )
+
+add_custom_command(OUTPUT "${GEN_DIRECTORY}/EIBConnection.py" DEPENDS "${GEN_DIRECTORY}/gen.inc" "${GEN_DIRECTORY}/result.inc"
+  COMMAND
+    cat ${CMAKE_CURRENT_SOURCE_DIR}/io.inc "${GEN_DIRECTORY}/gen.inc" "${GEN_DIRECTORY}/result.inc" > "${GEN_DIRECTORY}/EIBConnection.py"
+  )
+
+add_custom_target(generated-python ALL DEPENDS "${GEN_DIRECTORY}/EIBConnection.py")
+
+INSTALL(FILES "${GEN_DIRECTORY}/EIBConnection.py" DESTINATION shared)
