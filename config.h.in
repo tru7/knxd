@@ -1,0 +1,36 @@
+
+#define KNXD_VERSION_STR "@KNXD_VERSION_MAJOR@.@KNXD_VERSION_MINOR@.@KNXD_VERSION_PATCH@"
+
+#cmakedefine HAVE_LINUX_LOWLATENCY
+
+#cmakedefine HAVE_USB
+
+#cmakedefine HAVE_WINDOWS_IPHELPER
+
+#cmakedefine HAVE_LINUX_NETLINK
+
+#cmakedefine HAVE_BSD_SOURCEINFO
+
+#cmakedefine HAVE_FT12
+
+#cmakedefine HAVE_PEI16
+
+#cmakedefine HAVE_TPUART
+
+#cmakedefine HAVE_PEI16s
+
+#cmakedefine HAVE_TPUARTs
+
+#cmakedefine HAVE_EIBNETIP
+
+#cmakedefine HAVE_EIBNETIPTUNNEL
+
+#cmakedefine HAVE_USB
+
+#cmakedefine HAVE_NCN5120
+
+#cmakedefine HAVE_EIBNETIPSERVER
+
+#cmakedefine HAVE_GROUPCACHE
+
+#cmakedefine USE_NOLIBSTDC

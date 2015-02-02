@@ -140,7 +140,7 @@ readaddr (const char *addr)
 }
 
 /** version */
-const char *argp_program_version = "knxd " VERSION;
+const char *argp_program_version = "knxd " KNXD_VERSION_STR;
 /** documentation */
 static char doc[] =
   "knxd -- a commonication stack for EIB/KNX\n"

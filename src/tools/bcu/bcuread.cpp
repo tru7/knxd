@@ -82,7 +82,7 @@ Create (const char *url, Trace * t)
 }
 
 /** version */
-const char *argp_program_version = "bcuread " VERSION;
+const char *argp_program_version = "bcuread " KNXD_VERSION_STR;
 /** documentation */
 static char doc[] =
   "bcuread -- read BCU memory\n"

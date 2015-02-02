@@ -82,7 +82,7 @@ Create (const char *url, Trace * t)
 }
 
 /** version */
-const char *argp_program_version = "bcuaddrtab " VERSION;
+const char *argp_program_version = "bcuaddrtab " KNXD_VERSION_STR;
 /** documentation */
 static char doc[] =
   "bcuaddrtab -- read BCU address table size (or write it with -w)\n"
