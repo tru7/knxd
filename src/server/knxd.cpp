@@ -24,7 +24,7 @@
 #include <stdarg.h>
 #include <signal.h>
 #include <unistd.h>
-#include <sys/file.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include "layer3.h"
 #include "layer2.h"
