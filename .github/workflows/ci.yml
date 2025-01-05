@@ -107,7 +107,7 @@ jobs:
     - name: Merge with debian branch
       run: |
         git switch -C ci
-        git merge debian
+        git merge origin/debian
 
     - name: Build and install
       run: sh install-debian.sh
